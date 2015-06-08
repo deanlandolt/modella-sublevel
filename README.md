@@ -74,9 +74,9 @@ var OtherModel = model('OtherModel')
   .attr('id')
 
 OtherModel.store === undefined
-```
 
 // some time later...
+
 var otherStore = db.sublevel('OtherModel')
 OtherModel.attach(otherStore)
 OtherModel.store === otherStore
@@ -86,7 +86,7 @@ OtherModel.store === otherStore
 
 The `attach` method can be called without a store reference to detach it from store:
 
-```
+```js
 OtherModel.attach()
 OtherModel.store === undefined
 ```

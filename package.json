@@ -23,5 +23,13 @@
   "bugs": {
     "url": "https://github.com/deanlandolt/modella-sublevel/issues"
   },
-  "homepage": "https://github.com/deanlandolt/modella-sublevel#readme"
+  "homepage": "https://github.com/deanlandolt/modella-sublevel#readme",
+  "devDependencies": {
+    "faucet": "0.0.1",
+    "tape": "^4.0.0"
+  },
+  "dependencies": {
+    "level-secondary": "^1.1.1",
+    "through2": "^0.6.5"
+  }
 }
