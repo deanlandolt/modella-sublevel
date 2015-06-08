@@ -1,6 +1,6 @@
 {
   "name": "modella-sublevel",
-  "version": "0.0.0",
+  "version": "1.0.0-beta.0",
   "description": "Modella plugin to attach a model to a `sublevel`-based backing store, with optional secondary indexing",
   "main": "index.js",
   "scripts": {
@@ -29,6 +29,7 @@
     "tape": "^4.0.0"
   },
   "dependencies": {
+    "dezalgo": "^1.0.2",
     "level-secondary": "^1.1.1",
     "through2": "^0.6.5"
   }
