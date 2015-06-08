@@ -1,0 +1,27 @@
+{
+  "name": "modella-sublevel",
+  "version": "0.0.0",
+  "description": "Modella plugin to attach a model to a `sublevel`-based backing store, with optional secondary indexing",
+  "main": "index.js",
+  "scripts": {
+    "test": "tape test | faucet"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/deanlandolt/modella-sublevel.git"
+  },
+  "keywords": [
+    "modella",
+    "sublevel",
+    "model",
+    "collection",
+    "secondary",
+    "index"
+  ],
+  "author": "Dean Landolt <dean@deanlandolt.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/deanlandolt/modella-sublevel/issues"
+  },
+  "homepage": "https://github.com/deanlandolt/modella-sublevel#readme"
+}
