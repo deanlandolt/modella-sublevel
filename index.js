@@ -74,10 +74,8 @@ module.exports = function(Model) {
     return byField('del', field, value, cb)
   }
 
-  //
   // add secondary indexes
-  //
-  // TODO: needs more love for hooks to work over multilevel
+  // TODO: bytespace needs more love for hooks to work over multilevel
   var indexedAttrs = []
 
   for (var attr in Model.attrs) {
@@ -92,11 +90,7 @@ module.exports = function(Model) {
 function attach(store) {
   var Model = this
 
-  if (!store) {
-    return detach.call(Model)
-  }
-
-  if (typeof store.sublevel !== 'function') {
+  if (!store || typeof store.sublevel !== 'function') {
     throw new Error('Requires a sublevel-compatible backing store')
   }
 
@@ -104,12 +98,10 @@ function attach(store) {
     return cb(new Error('No primary key set on model'))
   }
 
-  //
-  // add reference to store
-  //
+  // keep a reference to store
   Model.store = store
 
-  // TODO: kill methods hackary?
+  // TODO: kill the `methods` hackary?
   store.methods || (store.methods = {})
 
   //
@@ -162,16 +154,12 @@ function attach(store) {
         cb(new TypeError('Primary key required'))
       }
 
-      //
       // validate
-      //
       if (!model.isValid()) {
         cb(new TypeError('Invalid model'))
       }
 
-      //
       // call base put with model record JSON
-      //
       var record = model.toJSON()
       base.put.call(store, k, record, opts, function (err) {
         cb(err, err ? null : record)
@@ -202,28 +190,28 @@ function attach(store) {
     }
   }
 
-  //
   // detach model from store
-  //
-  function detach() {
-    //
+  Model.detach = function () {
+
     // replace original methods on store
-    //
     for (var key in base) {
       store[key] = base[key]
     }
 
-    //
     // remove store reference
-    //
     Model.store = store = base = null
+
+    // noop detach
+    Model.detach = function () {}
+
+    return Model
   }
 
   return Model
 }
 
 //
-// transform to lift value of each stream result into a model
+// returns a transform stream to lift value of each stream result into a model
 //
 function modeledStream(opts) {
   var keys = opts.keys !== false
