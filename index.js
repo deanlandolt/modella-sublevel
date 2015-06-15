@@ -179,14 +179,14 @@ function attach(store) {
       opts || (opts = {})
       opts.keys = false
       opts.values = true
-      return store.createReadStream(opts).pipe(modeledStream(opts))
+      return store.createReadStream(opts).pipe(modeledStream(Model, opts))
     }
   }
 
   if (store.createLiveStream) {
     store.methods.createLiveStream = { type: 'readable' }
     Model.tail = function (opts) {
-      return store.createLiveStream(opts).pipe(modeledStream())
+      return store.createLiveStream(opts).pipe(modeledStream(Model))
     }
   }
 
@@ -213,11 +213,12 @@ function attach(store) {
 //
 // returns a transform stream to lift value of each stream result into a model
 //
-function modeledStream(opts) {
+function modeledStream(Model, opts) {
   var keys = opts.keys !== false
   var values = opts.values !== false
   var keysOnly = keys && !values
   var valuesOnly = !keys && values
+
   return through.obj(function (data, enc, cb) {
     if (keysOnly) {
       return cb(null, data)
