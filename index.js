@@ -139,13 +139,20 @@ function attach(store) {
       //
       // instantiate model check validity
       //
-      var model = v instanceof Model ? v : Model.create(v)
+      var model = v
+      if (!(v instanceof Model)) {
+        // copy k to primary key field and create model instance
+        v[Model.primaryKey] = k
+        model = Model.create(v)
+      }
 
       //
       // ensure primary key and check validity
       //
       if (k) {
-        model.primary(k)
+        if (model.primary() !== k) {
+          cb(new TypeError('Primary key mismatch'))
+        }
       }
       else if (store.generateKey) {
         model.primary(store.generateKey())
