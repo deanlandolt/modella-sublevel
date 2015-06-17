@@ -1,6 +1,6 @@
 {
   "name": "modella-sublevel",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.2",
   "description": "Modella plugin to attach a model to a `sublevel`-based backing store, with optional secondary indexing",
   "main": "index.js",
   "scripts": {
